@@ -4,6 +4,7 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
@@ -16,8 +17,17 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        {/* <ThemedText type="title">Welcome!</ThemedText> */}
+        <ThemedText type='title'> Hello World !</ThemedText>
         <HelloWave />
+      </ThemedView>
+      <ThemedView>
+        <ThemedText>Billie is learning react native now
+        {/* <Link href="/details">View details</Link> */}
+        <Link href="/setting">Settings</Link>
+        </ThemedText>
+       <Link className='text-white' href='/register'>Get started</Link>
+       <Link className='text-white' href='/home'>Home</Link>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
