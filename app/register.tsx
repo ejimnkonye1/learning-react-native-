@@ -25,7 +25,7 @@ export default function Register() {
             const userInfo = await createUserWithEmailAndPassword(auth, email, password);
             console.log("User info:", userInfo);
             Alert.alert("Success", "Account created successfully!");
-            router.push("/details"); 
+            // router.push("/details"); 
         } catch (error:any) {
             Alert.alert("Error", error.message);
         } finally {

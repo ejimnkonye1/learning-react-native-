@@ -23,6 +23,8 @@ function AppContent() {
   const { theme } = useTheme(); // Get theme from context
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -44,6 +46,7 @@ function AppContent() {
         <Stack.Screen name="register" />
         <Stack.Screen name="setting" />
         <Stack.Screen name="home" />
+        <Stack.Screen name="profile" />
       </Stack>
       <StatusBar style="auto" />
     </NavigationThemeProvider>

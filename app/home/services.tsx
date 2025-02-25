@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useTheme } from "../../context/ThemeContext";
 
 const services = [
     { name: "Airtime", icon: "phone", color: "#3b82f6" }, // blue-500
@@ -15,11 +16,13 @@ const services = [
   
 
 const ServiceGrid = () => {
+  const { theme, toggleTheme } = useTheme();
+   const isDarkMode = theme === "dark";
   return (
 <ScrollView className="px-4 py-4 pt-7">
   {/* Header */}
   <View className="flex-row justify-between mb-4">
-    <Text className="text-md font-bold">Services</Text>
+    <Text className={`text-md font-bold ${isDarkMode ?"text-white": "black"}`}>Services</Text>
     <TouchableOpacity className="flex-row items-center ">
       <Text className="text-blue-500 font-semibold">More</Text>
                 <Icon name="angle-right" className="ml-2" size={20} color="#3b82f6" />
@@ -30,10 +33,10 @@ const ServiceGrid = () => {
   <View className="flex-row flex-wrap justify-between">
     {services.map((item, index) => (
       <TouchableOpacity key={index} className="items-center w-1/4 p-2">
-        <View className="bg-gray-100 rounded-2xl p-3 mb-1">
+        <View className={`bg-gray-100 rounded-2xl p-3 mb-1 ${  isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
           <Icon name={item.icon} size={24} style={{ color: item.color }} />
         </View>
-        <Text className="text-xs text-center">{item.name}</Text>
+        <Text className={`text-xs text-center ${isDarkMode? 'text-white':''}`}>{item.name}</Text>
       </TouchableOpacity>
     ))}
   </View>

@@ -24,7 +24,7 @@ export default function HomeScreen() {
       <ThemedView>
         <ThemedText>Billie is learning react native now
         {/* <Link href="/details">View details</Link> */}
-        <Link href="/setting">Settings</Link>
+        <Link href="/profile">Settings</Link>
         </ThemedText>
        <Link className='text-white' href='/register'>Get started</Link>
        <Link className='text-white' href='/home'>Home</Link>

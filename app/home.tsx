@@ -5,12 +5,12 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import History from "../app/history";
-import BottomNav from "./bottomnav";
-import BalanceCard from "./balance";
-import TopNavbar from "./header"
-import SendButtons from "./button";
-import ServiceGrid from "./services";
+import History from "./home/history";
+import BottomNav from "./home/bottomnav";
+import BalanceCard from "./home/balance";
+import TopNavbar from "./home/header"
+import SendButtons from "./home/button";
+import ServiceGrid from "./home/services";
 export default function HomeScreen() {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ export default function HomeScreen() {
    
       <TopNavbar />
       <ScrollView
-        className={`${theme === "dark" ? "bg-[#161622]" : "bg-[#FFFFFF]"} pt-[55px]`}
+        className={`${theme === "dark" ? "bg-[#1F1F1F]" : "bg-[#FFFFFF]"} pt-[55px]`}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }} // Add space for BottomNav
       >
