@@ -26,7 +26,7 @@ export default function HomeScreen() {
         {/* <Link href="/details">View details</Link> */}
         <Link href="/profile">Settings</Link>
         </ThemedText>
-       <Link className='text-white' href='/register'>Get started</Link>
+       <Link className='text-white' href='/login'>Get started</Link>
        <Link className='text-white' href='/home'>Home</Link>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>

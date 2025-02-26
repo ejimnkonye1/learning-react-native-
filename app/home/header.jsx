@@ -1,13 +1,45 @@
 import { useTheme } from "@/context/ThemeContext";
+import { auth, firestore } from "@/firebaseConfig";
 import { useNavigation, useRouter,Link } from "expo-router";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { View, Text, Image, Pressable, ScrollView, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function TopNavbar () {
+  const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true); 
      const { theme, toggleTheme } = useTheme();
      const isDarkMode = theme === "dark";
      const navigation = useNavigation()
      const router = useRouter();
+const user = auth.currentUser
+
+useEffect(() => {
+  const fetchUserData = async () => {
+    if (!user) return; // No user, no need to fetch
+
+    try {
+      setLoading(true);
+      const userDocRef = doc(firestore, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        setUserData(userDoc.data());
+      } else {
+        console.warn("User document not found in Firestore.");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUserData();
+}, [user]);
+
+
 
     return(
         <View className={`absolute top-0 left-0 right-0 ${isDarkMode? "bg-gray-800": 'bg-white'}  py-4 px-5 shadow-lg z-10 pt-10`}
@@ -30,7 +62,7 @@ export default function TopNavbar () {
         </Link>
       </TouchableOpacity>
       <View className="pl-2">
-        <Text className={`text-md font-semibold ${isDarkMode ? 'text-white':'text-black'}`}>Billie Dominic</Text>
+        <Text className={`text-md font-semibold ${isDarkMode ? 'text-white':'text-black'}`}>{userData?.name || "Guest"}</Text>
         <Text className={`text-sm ${isDarkMode ? 'text-white':''}`}>Welcome, let’s make a payment</Text>
       </View>
     </View>

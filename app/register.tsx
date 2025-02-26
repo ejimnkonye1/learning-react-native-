@@ -3,10 +3,11 @@ import { Link, useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { useState } from "react";
 import { useFonts } from "expo-font";
-import { auth } from '../firebaseConfig';
+import { auth, firestore } from '../firebaseConfig';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "expo-router";
 import { useTheme } from "../context/ThemeContext"; // Import theme context
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -23,15 +24,29 @@ export default function Register() {
         setIsLoading(true);
         try {
             const userInfo = await createUserWithEmailAndPassword(auth, email, password);
-            console.log("User info:", userInfo);
+            const user = userInfo.user;
+            const userId = user.uid;
+    
+            console.log("User created:", userId);
+    
+            await setDoc(doc(firestore, "users", userId), {
+                email,
+                name,
+                userId,
+            });
+    
+            console.log("User added to Firestore successfully");
+    
             Alert.alert("Success", "Account created successfully!");
-            // router.push("/details"); 
-        } catch (error:any) {
+            router.push("/login");
+        } catch (error) {
+            console.error("Error during registration:", error);
             Alert.alert("Error", error.message);
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     // Load custom fonts
     const [fontsLoaded] = useFonts({
@@ -118,7 +133,7 @@ export default function Register() {
                         <Icon name="phone" size={20} color={theme === "dark" ? "#AAAAAA" : "gray"} />
                         <TextInput
                             keyboardType="numeric"
-                            maxLength={10}
+                            maxLength={11}
                             placeholder="Mobile No"
                             className="flex-1 ml-2"
                             value={number}
